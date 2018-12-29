@@ -1,0 +1,139 @@
+<!--Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>运通智能模块错误码查询</title>
+<!-- Custom Theme files -->
+<link href="css/style.css" rel="stylesheet prefetch" type="text/css" media="all"/>
+
+<!-- Custom Theme files -->
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+<meta name="keywords" content="Flat Search Box Responsive, Login form web template, Sign up Web Templates, Flat Web Templates, Login signup Responsive web template, Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
+<!--Google Fonts-->
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+<!--Google Fonts-->
+
+<script type="text/javascript">
+
+//window.onload = function(){
+//        alert("当前域名即将过期，请访问www.errcode.cf");
+//};
+
+
+
+
+var xmlHttp
+
+function showUser()
+{
+//判断是否输入为空
+var s=document.getElementById("ErrCode").value;
+if(s==""){
+alert("请输入错误码");
+return;
+}
+document.getElementById("loading").innerHTML="<p>LOADING...</p>"
+xmlHttp=GetXmlHttpObject()
+if (xmlHttp==null)
+ {
+ alert ("Browser does not support HTTP Request")
+ return
+ }
+var url="errcode.php"
+var str=document.getElementById("ErrCode").value
+url=url+"?ErrCode="+str
+//url=url+Math.random()
+xmlHttp.onreadystatechange=stateChanged 
+xmlHttp.open("GET",url,true)
+xmlHttp.send(null)
+}
+
+function stateChanged() 
+{ 
+if (xmlHttp.readyState==4 || xmlHttp.readyState=="complete")
+ { 
+if(xmlHttp.responseText.length<10){
+document.getElementById("loading").innerHTML='';
+document.getElementById("txtHint").innerHTML='';
+ alert('错误码不存在');
+
+return;}
+document.getElementById("loading").innerHTML='';
+document.getElementById("txtHint").innerHTML=xmlHttp.responseText 
+ } 
+}
+
+function GetXmlHttpObject()
+{
+var xmlHttp=null;
+try
+ {
+ // Firefox, Opera 8.0+, Safari
+ xmlHttp=new XMLHttpRequest();
+ }
+catch (e)
+ {
+ //Internet Explorer
+ try
+  {
+  xmlHttp=new ActiveXObject("Msxml2.XMLHTTP");
+  }
+ catch (e)
+  {
+  xmlHttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+ }
+return xmlHttp;
+}
+
+function feedback(){
+xmlHttp=GetXmlHttpObject()
+if (xmlHttp==null)
+ {
+ alert ("Browser does not support HTTP Request")
+ return
+ }
+var url="test.php"
+xmlHttp.onreadystatechange=stateChanged1
+xmlHttp.open("GET",url,true)
+xmlHttp.send(null)
+}
+
+function stateChanged1() 
+{ 
+if (xmlHttp.readyState==4 || xmlHttp.readyState=="complete")
+ { 
+ document.getElementById("total").innerHTML=xmlHttp.responseText 
+ } 
+}
+
+</script>
+
+
+</head>
+<body>
+<!--search start here-->
+<div class="search">
+	<div class="s-bar">
+	   <div>
+		<input required maxlength="7" pattern="[0-9]*" id="ErrCode" type="text" value="请输入错误码" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '请输入错误码';}"}">
+		<input type="submit" value="search" onclick="showUser()"/>
+	  </div>
+
+	</div>
+	
+</div>
+<div align="center" id="loading" ></div>
+<div align="center" id="txtHint" class="txtHint"></div>
+<!--search end here-->	
+<div class="copyright">
+	 <p>2018 &copy GRGBANKING All rights reserved |  <a href="feedback.html?errcode=null">  意见反馈 </a></p>
+</div>	
+</body>
+</html>
