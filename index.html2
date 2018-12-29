@@ -1,0 +1,138 @@
+﻿
+<html>
+
+<head>
+<title>错误码查询</title>
+<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'>
+<style type="text/css" >
+.a{
+position:absolute;
+   left:42%;
+      bottom:0;}
+.search{
+border-width: 0px;
+border-style: solid;
+  border-color: #EEEEEE;
+width:320px;
+height：50px;
+padding:0;
+}  
+input{
+  height:40px;
+}
+span{float: left;display: inline-block;}
+
+.search_form{position:relative; height:31px; margin:60px;display:inline-block;}
+.search_form:hover{-webkit-box-shadow:0 0 3px #999;-moz-box-shadow:0 0 3px #999}
+.sinput{float:left; width:200px; height:21px; line-height:21px; padding:4px 7px; color:b3b3b3; 
+border:1px solid #999; border-radius:2px 0 0 2px; background-color:#fbfbfb;}
+.sbtn{float:left; width:50px; height:31px; padding:0 12px; margin-left:-1px; 
+border-radius:0 2px 2px 0; border:1px solid #4d90fe; background-color:#4d90fe; cursor:pointer; 
+display:inline-block; font-size:12px; vertical-align:middle; color:#f3f7fc;position:absolute;}
+.sbtn:hover{background:#4084f2}
+
+
+</style>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />  
+<meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<script type="text/javascript" language="javascript" src="JavaScript/jquery-1.6.1.min.js" ></script>
+<script type="text/javascript">
+
+var xmlHttp
+
+function showUser()
+{
+//判断是否输入为空
+var s=document.getElementById("ErrCode").value;
+if(s==""){
+alert("请输入错误码");
+return;
+}
+
+xmlHttp=GetXmlHttpObject()
+if (xmlHttp==null)
+ {
+ alert ("Browser does not support HTTP Request")
+ return
+ }
+var url="errcode.php"
+var str=document.getElementById("ErrCode").value
+url=url+"?ErrCode="+str
+//url=url+Math.random()
+xmlHttp.onreadystatechange=stateChanged 
+xmlHttp.open("GET",url,true)
+xmlHttp.send(null)
+}
+
+function stateChanged() 
+{ 
+if (xmlHttp.readyState==4 || xmlHttp.readyState=="complete")
+ { 
+ document.getElementById("txtHint").innerHTML=xmlHttp.responseText 
+ } 
+}
+
+function GetXmlHttpObject()
+{
+var xmlHttp=null;
+try
+ {
+ // Firefox, Opera 8.0+, Safari
+ xmlHttp=new XMLHttpRequest();
+ }
+catch (e)
+ {
+ //Internet Explorer
+ try
+  {
+  xmlHttp=new ActiveXObject("Msxml2.XMLHTTP");
+  }
+ catch (e)
+  {
+  xmlHttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+ }
+return xmlHttp;
+}
+
+function feedback(){
+xmlHttp=GetXmlHttpObject()
+if (xmlHttp==null)
+ {
+ alert ("Browser does not support HTTP Request")
+ return
+ }
+var url="test.php"
+xmlHttp.onreadystatechange=stateChanged1
+xmlHttp.open("GET",url,true)
+xmlHttp.send(null)
+}
+
+function stateChanged1() 
+{ 
+if (xmlHttp.readyState==4 || xmlHttp.readyState=="complete")
+ { 
+ document.getElementById("total").innerHTML=xmlHttp.responseText 
+ } 
+}
+</script>
+</head>
+<body>
+<div id="total">
+	<div align="center" >
+		<br><br>
+		<h2>错误码查询</h2>
+		<br />
+		<div class="search">
+		<span class="span1"><input type="search" placeholder="请输入错误码" id="ErrCode" style="border-color:#BDBDBD;font-size:20px" required maxlength="7" pattern="[0-9]*" autofocus></span>
+		<span class="span2"><button class="btn" onclick="showUser()" style="border:none;background-color:DodgerBlue;color:white;font-size:20px;">搜索</button></span>
+		</div>
+		<br /><br /><br />
+		<div id="txtHint"><a class="a" href="feedback.html?errcode=null">意见反馈</a></div>
+	</div>
+</div>
+</body>
+</html>
