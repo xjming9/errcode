@@ -29,7 +29,7 @@ echo 'blank';
 
 }
 else{
-
+echo"<div align='center'>";
 echo "<table  class='table table-bordered table-striped'>
 <thead>
 <tr>
@@ -50,6 +50,7 @@ if($row['建议']==""){echo"<td>"; echo"<a href=feedback.html?errcode=".$_GET['E
  }
  echo"</tbody>";
 echo "</table>";
+echo"</div>"
 
 mysql_close($con);
 }
